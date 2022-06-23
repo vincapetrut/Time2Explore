@@ -13,6 +13,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
     var searchEngine = "https://google.com/search?q="
     var homePage = "https://google.com"
     var defaultTitle = true
+    var progressView: UIProgressView!
     
     override func loadView() {
         webView = WKWebView()
@@ -26,12 +27,33 @@ class ViewController: UIViewController, WKNavigationDelegate {
         title = "Time 2 Explore"
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchPage))
+        
+        progressView = UIProgressView(progressViewStyle: .default)
+        progressView.sizeToFit()
+        toolbarItems = [
+            UIBarButtonItem(title: "Back", style: .plain, target: webView, action: #selector(webView.goBack)),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(customView: progressView),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload)),
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: "Forward", style: .plain, target: webView, action: #selector(webView.goForward))
+        ]
+        navigationController?.isToolbarHidden = false
 
         openPage(homePage)
+        
+        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "estimatedProgress" {
+            progressView.progress = Float(webView.estimatedProgress)
+        }
     }
     
     @objc func searchPage() {
-        let alertController = UIAlertController(title: "Enter the page :)", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Enter page name :)", message: nil, preferredStyle: .alert)
         alertController.addTextField()
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alertController.addAction(UIAlertAction(title: "Search", style: .default) {[weak self, weak alertController] action in
