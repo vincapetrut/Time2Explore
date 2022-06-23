@@ -1,8 +1,8 @@
 <h1 align="center">Time 2 Explore</h1>
 
 <p align="center">
-    <img src="https://i.im.ge/2022/06/22/uo522T.png" alt="Time 2 Explore White Mode" width="300" /></a>
-    <img src="https://i.im.ge/2022/06/22/uo5Swc.png" alt="Time 2 Explore Dark Mode" width="300" /></a>
+    <img src="https://i.im.ge/2022/06/24/ul8v10.png" alt="Time 2 Explore White Mode" width="300" /></a>
+    <img src="https://i.im.ge/2022/06/24/ul8nZc.png" alt="Time 2 Explore Dark Mode" width="300" /></a>
 </p>
 
 <p align="center">
